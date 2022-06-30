@@ -1,2 +1,2 @@
-# simple-clipboard-website
+# Simple Clipboard Website
  https://cb.velyn-dns.me

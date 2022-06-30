@@ -1,0 +1,126 @@
+body {
+    background-color: cornsilk
+}
+
+div.container {
+    margin: 10px
+}
+
+.account {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-style: solid;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: ghostwhite
+}
+
+input {
+    border-style: inset;
+    border-radius: 5px
+}
+
+.btn {
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 6px 8px;
+    border: none;
+    font: bold 15px Arial;
+    color: white
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+
+.nav .left {
+    padding-left: 10px
+}
+
+.nav .center {
+    text-align: center;
+    padding: 8px
+}
+
+.nav .right {
+    padding-right: 10px
+}
+
+.top {
+    padding-top: 3px
+}
+
+.btn.btn-green {
+    background-color: rgb(82, 221, 82)
+}
+
+.btn.btn-green:hover {
+    background-color: rgb(10, 129, 10)
+}
+
+.btn.btn-red {
+    background-color: rgb(223, 27, 66)
+}
+
+.btn.btn-red:hover {
+    background-color: rgb(122, 16, 37)
+}
+
+.btn.btn-red:disabled {
+    color: rgb(220,220,220);
+    background-color: rgb(92, 14, 29)
+}
+
+.btn.btn-yellow {
+    background-color: rgb(207, 219, 37)
+}
+
+.btn.btn-yellow:hover {
+    background-color: rgb(159, 167, 53)
+}
+
+.btn.btn-blue {
+    background-color: rgb(33, 132, 197)
+}
+
+.btn.btn-blue:hover {
+    background-color: rgb(18, 90, 138)
+}
+
+.btn.btn-blue:disabled {
+    color: rgb(220,220,220);
+    background-color: rgb(10, 69, 109)
+}
+
+.text-green {
+    color: green
+}
+
+.text-red {
+    color: red
+}
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+
+    div.container {
+        margin: 4px;
+        margin-top: 12px;
+    }
+
+    .nav .center.bottom {
+        padding-top: 4px
+    }
+
+    .text-mini {
+        font-size: 12px
+    }
+}
