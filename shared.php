@@ -1,5 +1,6 @@
 <?php
     include 'db.php';
+    include 'encryption.php';
 
     if (!isset($_GET['token']) || isset($_POST['back']))
         header("Location: index.php");
@@ -9,12 +10,12 @@
         $sql = "SELECT id,field FROM storage WHERE token='$token'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
-        $field = $row['field'];
+        $clipboard = decrypt($row['field'], $token);
 
         if (isset($_POST['save'])) {
             $field = htmlspecialchars($_POST['field']);
 
-            if ($row['field'] == $field)
+            if ($clipboard == $field)
                 echo "<script>alert('tidak ada perubahan')</script>";
 
             else {
@@ -24,6 +25,8 @@
                     header("Location: index.php");
 
                 } else {
+                    $clipboard = $field;
+                    $field = encrypt($field, $token);
                     $sql = "UPDATE storage SET field='$field' WHERE token='$token'";
                     mysqli_query($conn, $sql);
                     echo "<script>alert('sukses')</script>";
@@ -54,25 +57,17 @@
             </div>
             <div>
                 <p style="margin-block-start: 0.5em; margin-block-end: 0.6em"><textarea id="lineCounter" wrap="off" readonly>1.</textarea>
-                    <textarea id="codeEditor" wrap="off" name="field" placeholder="Kosongkan lalu simpan untuk menghapus."><?=$field?></textarea>
+                    <textarea id="codeEditor" wrap="off" name="field" placeholder="Kosongkan lalu simpan untuk menghapus."><?=$clipboard?></textarea>
                 </p>
             </div>
         </form>
         <div class="nav">
-            <div class="left"><button class="btn btn-blue" id="copy-link" onclick="alert('link dicopy')">Copy Link</button></div>
+            <div class="left"><button class="btn btn-blue" id="copy-link" onclick="copyLink()">Copy Link</button></div>
             <div class="center bottom"><b class="text-red text-mini">Data Akan Dihapus Tiap Minggu</b></div>
-            <div class="right"><button class="btn btn-yellow" id="copy-text" data-clipboard-target="#codeEditor" onclick="alert('text dicopy')">Copy Text</button></div>
+            <div class="right"><button class="btn btn-yellow" id="copy-text" onclick="copyEditor()">Copy Text</button></div>
         </div>
     </div>
 <script type="text/javascript" src="/editor.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
-<script>
-    new ClipboardJS('#copy-link', {
-        text: function(trigger) {
-            return window.location.href;;
-        }
-    });
-    new ClipboardJS('#copy-text');
-</script>
+<script type="text/javascript" src="/button.js"></script>
 </body>
 </html>

@@ -2,20 +2,23 @@
 	session_set_cookie_params(600000);
 	session_start();
 	include 'db.php';
+	include 'encryption.php';
 
 	if (isset($_SESSION['username'])) {
 		$username = sha1($_SESSION['username'], true);
 		$sql = "SELECT field FROM user WHERE username='$username'";
 		$result = mysqli_query($conn, $sql);
-		$clipboard = mysqli_fetch_assoc($result)['field'];
-		$field = $clipboard;
+		$clipboard = decrypt(mysqli_fetch_assoc($result)['field'], $username);
 
 		if (isset($_POST['save'])) {
-			if ($clipboard == $_POST['field'])
+			$field = htmlspecialchars($_POST['field']);
+
+			if ($clipboard == $field)
 				echo "<script>alert('tidak ada perubahan')</script>";
 
 			else {
-				$field = htmlspecialchars($_POST['field']);
+				$clipboard = $field;
+				$field = encrypt($field, $username);
 				$sql = "UPDATE user SET field='$field' WHERE username='$username'";
 				mysqli_query($conn, $sql);
 				echo "<script>alert('sukses')</script>";
@@ -42,7 +45,7 @@
 
 		else {
 			$token = bin2hex(random_bytes(10));
-			$field = htmlspecialchars($_POST['field']);
+			$field = encrypt(htmlspecialchars($_POST['field']), $token);
 			$sql = "INSERT INTO storage (token, field) VALUES ('$token', '$field')";
 			$result = mysqli_query($conn, $sql);
 
@@ -80,7 +83,7 @@
 		</div>
 		<div>
 			<p style="margin-block-start: 0.5em; margin-block-end: 0.6em"><textarea id="lineCounter" wrap="off" readonly>1.</textarea>
-				<textarea <?php if (!isset($_SESSION['username'])) echo "placeholder='Login untuk menyimpan ke Akun.'"?> id="codeEditor" wrap="off" name="field"><?php if (isset($_SESSION['username'])) echo $field?></textarea>
+				<textarea <?php if (!isset($_SESSION['username'])) echo "placeholder='Login untuk menyimpan ke Akun&#10selamanya. Atau bagikan secara&#10langsung dengan tombol dibawah.'"?> id="codeEditor" wrap="off" name="field"><?php if (isset($_SESSION['username'])) echo $clipboard?></textarea>
 			</p>
 		</div>
 		<div class="nav">
