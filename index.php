@@ -30,10 +30,10 @@
 			<?php if (!isset($_SESSION['username'])) { ?>
 			<div class="left"><button type="button" onclick="window.location.href='account.php'" name="login" class="btn btn-green">Login</button></div>
 			<?php } else { ?>
-			<div class="left"><button type="button" onclick="this.value='logout'; formButton(); this.value=''" name="logout" class="btn btn-red form_data">Logout</button></div>
+			<div class="left"><button type="button" onclick="formButton('logout')" id="logout" name="logout" class="btn btn-red form_data">Logout</button></div>
 			<?php } ?>
 			<div class="center"><b><?php if (isset($_SESSION['username'])) echo $_SESSION['username']; else echo "Simple" ?> Clipboard</b></div>
-			<div class="right"><Button type="button" onclick="this.value='save'; formButton(); this.value=''" name="save-acc" class="btn btn-blue form_data" <?php if (!isset($_SESSION['username'])) echo 'disabled'?>>Simpan</Button></div>
+			<div class="right"><Button type="button" onclick="formButton('save')" id="save" name="save-acc" class="btn btn-blue form_data" <?php if (!isset($_SESSION['username'])) echo 'disabled'?>>Simpan</Button></div>
 		</div>
 		<div>
 			<p style="margin-block-start: 0.5em; margin-block-end: 0.6em"><textarea id="lineCounter" wrap="off" readonly>1.</textarea>
@@ -41,9 +41,9 @@
 			</p>
 		</div>
 		<div class="nav">
-			<div class="left"><button type="button" onclick="delButt('akun')" id="delete" name="delete-acc" class="btn btn-red form_data" <?php if (!isset($_SESSION['username'])) echo 'disabled'?>>Hapus Akun</button></div>
+			<div class="left"><button type="button" onclick="delButt('akun')" id="akun" name="delete-acc" class="btn btn-red form_data" <?php if (!isset($_SESSION['username'])) echo 'disabled'?>>Hapus Akun</button></div>
 			<div class="center bottom"><b class="text-green text-mini">Bagikan Langsung -></b></div>
-			<div class="right"><Button type="button" onclick="this.value='share'; formButton(); this.value=''" name="share" class="btn btn-yellow form_data">Bagikan</Button></div>
+			<div class="right"><Button type="button" onclick="formButton('share')" id="share" name="share" class="btn btn-yellow form_data">Bagikan</Button></div>
 		</div>
 	</form>
 	</div>

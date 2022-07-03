@@ -50,10 +50,10 @@
             <tr>
                 <td colspan="2" style="padding-top: 6px">
                     <?php if (isset($_GET['daftar']) or isset($_POST['daftar'])) { ?>
-                    <button type="button" onclick="this.value='register'; formButton(); this.value=''" name="daftar" class="btn btn-blue form_data">Daftar</button>
+                    <button type="button" onclick="formButton('register')" id="register" name="daftar" class="btn btn-blue form_data">Daftar</button>
                     <button type="button" onclick="window.location.href='/account.php'" class="btn btn-green">Login Saja</button>
                     <?php } else { ?>
-                    <button type="button" onclick="this.value='login'; formButton(); this.value=''" name="login" class="btn btn-green form_data">Login</button>
+                    <button type="button" onclick="formButton('login')" id="login" name="login" class="btn btn-green form_data">Login</button>
                     <button type="button" onclick="window.location.href='/account.php?daftar'" class="btn btn-blue">Daftar Baru</button>
                     <?php } ?>
                     <button type="button" onclick="window.location.href='/'" class="btn btn-red">Kembali</button>

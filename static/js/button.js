@@ -9,13 +9,21 @@ function copyLink() {
     navigator.clipboard.writeText(window.location.href).then(function() {alert('link dicopy')});
 }
 
-function formButton() {
+function formButton(idButt, val) {
+    if (val === undefined) {
+        val = "submit";
+    }
+
+    document.getElementById(idButt).value= val;
+
     var form_element = document.getElementsByClassName('form_data');
     var form_data = new FormData();
 
     for (var count = 0; count < form_element.length; count++) {
         form_data.append(form_element[count].name, form_element[count].value);
     }
+
+    document.getElementById(idButt).disabled = true;
 
     var ajax_request = new XMLHttpRequest();
     ajax_request.open('POST', 'action.php');
@@ -50,14 +58,13 @@ function formButton() {
             } else {
                 alert(ajax_request.responseText);
             }
+
+            document.getElementById(idButt).value= "";
+            document.getElementById(idButt).disabled = false;
         }
     }
 }
 
-function delButt(what) {
-    if (confirm("hapus "+what+" ?") == true) {
-        document.getElementById("delete").value="delete";
-        formButton()
-        document.getElementById("delete").value="";
-    }
+function delButt(what, val) {
+    if (confirm("hapus "+what+" ?")) formButton(what, val)
 }

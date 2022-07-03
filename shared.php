@@ -34,9 +34,9 @@
     <div class="container">
         <form>
             <div class="nav" class="top">
-                <div class="left"><button type="button" onclick="delButt('clipboard')" id="delete" name="delete-temp" class="btn btn-red form_data">Hapus</button></div>
+                <div class="left"><button type="button" onclick="delButt('clipboard', '<?=$token?>')" id="clipboard" name="delete-temp" class="btn btn-red form_data">Hapus</button></div>
                 <div class="center"><b>Clipboard #<?=$row['id']?></b></div>
-                <div class="right"><Button type="button" onclick="this.value='<?=$token?>'; formButton(); this.value=''" name="save-temp" class="btn btn-green form_data">Simpan</Button></div>
+                <div class="right"><Button type="button" onclick="formButton('save', '<?=$token?>')" id="save" name="save-temp" class="btn btn-green form_data">Simpan</Button></div>
             </div>
             <div>
                 <p style="margin-block-start: 0.5em; margin-block-end: 0.6em"><textarea id="lineCounter" wrap="off" readonly>1.</textarea>
