@@ -1,5 +1,5 @@
 <?php
-	session_set_cookie_params(600000, $secure=true);
+	session_set_cookie_params(7 * 24 * 60 * 60);
 	session_start();
 	include 'db.php';
 	include 'encryption.php';

@@ -1,5 +1,5 @@
 <?php
-    session_set_cookie_params(600000, $secure=true);
+    session_set_cookie_params(7 * 24 * 60 * 60);
 	session_start();
 	include 'db.php';
 	include 'encryption.php';
@@ -47,6 +47,7 @@
 
             if (password_verify($_POST['password'], $password)) {
                 $_SESSION['username'] = $_POST['username'];
+                unset($_SESSION['captcha']);
                 echo "login";
 
             } else
@@ -70,6 +71,7 @@
                     $sql = "INSERT INTO user (username, password) VALUES ('$username', '$password')";
                     $result = mysqli_query($conn, $sql);
                     $_SESSION['username'] = $_POST['username'];
+                    unset($_SESSION['captcha']);
                     echo "register";
 
                 } else
