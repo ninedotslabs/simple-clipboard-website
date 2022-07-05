@@ -1,5 +1,4 @@
 <?php
-    session_set_cookie_params(7 * 24 * 60 * 60);
     session_start();
 
     if (isset($_SESSION['username']))

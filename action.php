@@ -1,5 +1,4 @@
 <?php
-    session_set_cookie_params(7 * 24 * 60 * 60);
 	session_start();
 	include 'db.php';
 	include 'encryption.php';
@@ -47,6 +46,7 @@
 
             if (password_verify($_POST['password'], $password)) {
                 $_SESSION['username'] = $_POST['username'];
+                setcookie('username', $_SESSION['username'], time() + (86400 * 7), "/");
                 unset($_SESSION['captcha']);
                 echo "login";
 
@@ -71,6 +71,7 @@
                     $sql = "INSERT INTO user (username, password) VALUES ('$username', '$password')";
                     $result = mysqli_query($conn, $sql);
                     $_SESSION['username'] = $_POST['username'];
+                    setcookie('username', $_SESSION['username'], time() + (86400 * 7), "/");
                     unset($_SESSION['captcha']);
                     echo "register";
 
@@ -86,8 +87,9 @@
     if (isset($_SESSION['username'])) {
         $username = sha1($_SESSION['username'], true);
 
-        //destroy session to logout
+        //delete cookie and destroy session to logout
         if (!empty($_POST['logout'])) {
+            setcookie("username", "", time() - 1);
             session_destroy();
             echo "logout";
 
@@ -103,6 +105,7 @@
 		} elseif (!empty($_POST['delete-acc'])) {
 			$sql = "DELETE FROM user WHERE username='$username'";
 			mysqli_query($conn, $sql);
+            setcookie("username", "", time() - 1);
 			session_destroy();
             echo "deleted";
 		}
