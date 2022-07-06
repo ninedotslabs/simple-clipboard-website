@@ -3,6 +3,9 @@
 	include 'db.php';
 	include 'encryption.php';
 
+	if (isset($_COOKIE['username']))
+		$_SESSION['username'] = $_COOKIE['username'];
+
 	if (isset($_SESSION['username'])) {
 		$username = sha1($_SESSION['username'], true);
 		$sql = "SELECT field FROM user WHERE username='$username'";
